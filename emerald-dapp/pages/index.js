@@ -9,8 +9,6 @@ import "../flow/config.js";
 export default function Home() {
   const [newGreeting, setNewGreeting] = useState('');
   const [greeting, setGreeting] = useState('');
-  const [number, setNumber] = useState('');
-  const [numberInput, setNumberInput] = useState('');
   const [txStatus, setTxStatus] = useState('Run Transaction');
 
   async function executeScript() {
@@ -29,24 +27,24 @@ export default function Home() {
     setGreeting(response)
   }
 
-  async function executeNumberScript() {
-    const response = await fcl.query({
-      cadence: `
-      import SimpleTest from 0x6c0d53c676256e8c 
-  
-      pub fun main(): Int {
-          return SimpleTest.number
-      }
-      `,
-      args: (arg, t) => [] // ARGUMENTS GO IN HERE
-    })
+  // async function executeNumberScript() {
+  //   const response = await fcl.query({
+  //     cadence: `
+  //     import SimpleTest from 0x6c0d53c676256e8c 
 
-    setNumber(response)
-  }
+  //     pub fun main(): Int {
+  //         return SimpleTest.number
+  //     }
+  //     `,
+  //     args: (arg, t) => [] // ARGUMENTS GO IN HERE
+  //   })
+
+  //   setNumber(response)
+  // }
 
   useEffect(() => {
     executeScript()
-    executeNumberScript()
+    // executeNumberScript()
   }, [])
 
   async function runTransaction() {
@@ -93,33 +91,33 @@ export default function Home() {
 
   }
 
-  async function runNumberTransaction() {
-    const transactionId = await fcl.mutate({
-      cadence: `
-      import SimpleTest from 0x6c0d53c676256e8c
-  
-      transaction(number: Int) {
-  
-        prepare(signer: AuthAccount) {}
-  
-        execute {
-          SimpleTest.updateNumber(newNumber: number)
-        }
-      }
-      `,
-      args: (arg, t) => [
-        arg(numberInput, t.Int)
-      ],
-      proposer: fcl.authz,
-      payer: fcl.authz,
-      authorizations: [fcl.authz],
-      limit: 999
-    })
+  // async function runNumberTransaction() {
+  //   const transactionId = await fcl.mutate({
+  //     cadence: `
+  //     import SimpleTest from 0x6c0d53c676256e8c
 
-    await fcl.tx(transactionId).onceSealed();
-    executeNumberScript();
-    console.log("Here is the transactionId: " + transactionId);
-  }
+  //     transaction(number: Int) {
+
+  //       prepare(signer: AuthAccount) {}
+
+  //       execute {
+  //         SimpleTest.updateNumber(newNumber: number)
+  //       }
+  //     }
+  //     `,
+  //     args: (arg, t) => [
+  //       arg(numberInput, t.Int)
+  //     ],
+  //     proposer: fcl.authz,
+  //     payer: fcl.authz,
+  //     authorizations: [fcl.authz],
+  //     limit: 999
+  //   })
+
+  //   await fcl.tx(transactionId).onceSealed();
+  //   executeNumberScript();
+  //   console.log("Here is the transactionId: " + transactionId);
+  // }
 
   return (
     <div>
@@ -135,7 +133,8 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to my <a href="https://academy.ecdao.org" target="_blank">Emerald DApp!</a>
         </h1>
-        <p>This is a DApp created by <p className={styles.p}>Jacob Tucker (<i>tsnakejake#8364</i>).</p></p>
+        <p>This is a DApp created by </p>
+        <p className={styles.p}> Jacob Tucker (<i>tsnakejake#8364</i>).</p>
       </div>
 
       <main className={styles.main}>
