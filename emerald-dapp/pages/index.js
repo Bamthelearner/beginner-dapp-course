@@ -27,24 +27,8 @@ export default function Home() {
     setGreeting(response)
   }
 
-  // async function executeNumberScript() {
-  //   const response = await fcl.query({
-  //     cadence: `
-  //     import SimpleTest from 0x6c0d53c676256e8c 
-
-  //     pub fun main(): Int {
-  //         return SimpleTest.number
-  //     }
-  //     `,
-  //     args: (arg, t) => [] // ARGUMENTS GO IN HERE
-  //   })
-
-  //   setNumber(response)
-  // }
-
   useEffect(() => {
     executeScript()
-    // executeNumberScript()
   }, [])
 
   async function runTransaction() {
@@ -91,34 +75,6 @@ export default function Home() {
 
   }
 
-  // async function runNumberTransaction() {
-  //   const transactionId = await fcl.mutate({
-  //     cadence: `
-  //     import SimpleTest from 0x6c0d53c676256e8c
-
-  //     transaction(number: Int) {
-
-  //       prepare(signer: AuthAccount) {}
-
-  //       execute {
-  //         SimpleTest.updateNumber(newNumber: number)
-  //       }
-  //     }
-  //     `,
-  //     args: (arg, t) => [
-  //       arg(numberInput, t.Int)
-  //     ],
-  //     proposer: fcl.authz,
-  //     payer: fcl.authz,
-  //     authorizations: [fcl.authz],
-  //     limit: 999
-  //   })
-
-  //   await fcl.tx(transactionId).onceSealed();
-  //   executeNumberScript();
-  //   console.log("Here is the transactionId: " + transactionId);
-  // }
-
   return (
     <div>
       <Head>
@@ -131,7 +87,7 @@ export default function Home() {
 
       <div className={styles.welcome}>
         <h1 className={styles.title}>
-          Welcome to my <a href="https://academy.ecdao.org" target="_blank">Emerald DApp!</a>
+          Welcome to my <a href="https://academy.ecdao.org" target="_blank" rel="noreferrer">Emerald DApp!</a>
         </h1>
         <p>This is a DApp created by </p>
         <p className={styles.p}> Jacob Tucker (<i>tsnakejake#8364</i>).</p>
